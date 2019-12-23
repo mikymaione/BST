@@ -1,6 +1,6 @@
 [package]
 name = "bst"
-version = "0.1.0"
+version = "20.19.1223"
 authors = ["Michele Maione <mikymaione@hotmail.it>"]
 edition = "2018"
 
