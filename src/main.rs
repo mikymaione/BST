@@ -7,9 +7,11 @@ fn main() {
 }
 
 fn main1() {
-	println!("Binary Heap:");
+	println!("Binary Max Heap:");
 
-	let t = [10, 8, 1, 5, 12, 14, 20, 2, 9, 13];
+	let mut t = [10, 8, 1, 5, 12, 14, 20, 2, 9, 13];
+
+	binheap::build_max_heap(&mut t);
 	binheap::print(&t);
 }
 
