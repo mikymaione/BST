@@ -1,9 +1,12 @@
+use rand::Rng;
+
 mod binheap;
 mod trees;
 
 fn main() {
 	main1();
 	main2();
+	main3();
 }
 
 fn main1() {
@@ -28,6 +31,24 @@ fn main2() {
 	t.insert(2);
 	t.insert(9);
 	t.insert(13);
+
+	t.print();
+}
+
+fn main3() {
+	println!("Binary Search Tree:");
+
+	let max_ = std::u64::MAX;
+	let media = max_ / 2;
+
+	let mut t = trees::Bst::new(media);
+	let mut rng = rand::thread_rng();
+	let mut x;
+
+	for _i in 0..9999 {
+		x = rng.gen_range(0, max_);
+		t.insert(x);
+	}
 
 	t.print();
 }

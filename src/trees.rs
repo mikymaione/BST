@@ -1,16 +1,16 @@
 pub struct Bst {
-	pub k: i64,
+	pub k: u64,
 
 	pub sx: Option<Box<Bst>>,
 	pub dx: Option<Box<Bst>>,
 }
 
 impl Bst {
-	fn new_leaf(v: i64) -> Option<Box<Bst>> {
+	fn new_leaf(v: u64) -> Option<Box<Bst>> {
 		Option::Some(Box::new(Bst::new(v)))
 	}
 
-	pub fn new(v: i64) -> Self {
+	pub fn new(v: u64) -> Self {
 		Bst {
 			k: v,
 			sx: None,
@@ -18,7 +18,7 @@ impl Bst {
 		}
 	}
 
-	pub fn insert(&mut self, v: i64) {
+	pub fn insert(&mut self, v: u64) {
 		if self.k > v {
 			match self.dx {
 				Some(ref mut p) => p.insert(v),
@@ -32,7 +32,7 @@ impl Bst {
 		}
 	}
 
-	fn print_it(&self, l: u8) {
+	fn print_it(&self, l: u64) {
 		for _i in 0..l {
 			print!("-");
 		}
