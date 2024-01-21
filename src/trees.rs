@@ -42,16 +42,16 @@ impl Bst {
 }
 
 impl Bst {
-    fn new_leaf(v: u64) -> Option<Box<Bst>> {
-        Some(Box::new(Bst::new(v)))
-    }
-
-    pub fn new(v: u64) -> Self {
-        Bst {
-            k: v,
+    pub fn new(k: u64) -> Self {
+        Self {
+            k,
             left: None,
             right: None,
         }
+    }
+
+    fn new_leaf(v: u64) -> Option<Box<Bst>> {
+        Some(Box::new(Bst::new(v)))
     }
 
     pub fn insert(&mut self, v: u64) {
