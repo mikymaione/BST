@@ -50,26 +50,26 @@ impl Bst {
         }
     }
 
-    fn new_leaf(v: u64) -> Option<Box<Bst>> {
-        Some(Box::new(Bst::new(v)))
+    fn new_leaf(k: u64) -> Option<Box<Bst>> {
+        Some(Box::new(Bst::new(k)))
     }
 
-    pub fn insert(&mut self, v: u64) {
-        if self.k > v {
+    pub fn insert(&mut self, k: u64) {
+        if self.k > k {
             match self.right {
                 None =>
-                    self.right = Bst::new_leaf(v),
+                    self.right = Bst::new_leaf(k),
 
                 Some(ref mut p) =>
-                    p.insert(v),
+                    p.insert(k),
             }
         } else {
             match self.left {
                 None =>
-                    self.left = Bst::new_leaf(v),
+                    self.left = Bst::new_leaf(k),
 
                 Some(ref mut p) =>
-                    p.insert(v),
+                    p.insert(k),
             }
         }
     }
