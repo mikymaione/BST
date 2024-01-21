@@ -8,58 +8,58 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 pub struct Bst {
-	pub k: u64,
+    pub k: u64,
 
-	pub sx: Option<Box<Bst>>,
-	pub dx: Option<Box<Bst>>,
+    pub sx: Option<Box<Bst>>,
+    pub dx: Option<Box<Bst>>,
 }
 
 impl Bst {
-	fn new_leaf(v: u64) -> Option<Box<Bst>> {
-		Option::Some(Box::new(Bst::new(v)))
-	}
+    fn new_leaf(v: u64) -> Option<Box<Bst>> {
+        Option::Some(Box::new(Bst::new(v)))
+    }
 
-	pub fn new(v: u64) -> Self {
-		Bst {
-			k: v,
-			sx: None,
-			dx: None,
-		}
-	}
+    pub fn new(v: u64) -> Self {
+        Bst {
+            k: v,
+            sx: None,
+            dx: None,
+        }
+    }
 
-	pub fn insert(&mut self, v: u64) {
-		if self.k > v {
-			match self.dx {
-				Some(ref mut p) => p.insert(v),
-				None => self.dx = Bst::new_leaf(v),
-			}
-		} else {
-			match self.sx {
-				Some(ref mut p) => p.insert(v),
-				None => self.sx = Bst::new_leaf(v),
-			}
-		}
-	}
+    pub fn insert(&mut self, v: u64) {
+        if self.k > v {
+            match self.dx {
+                Some(ref mut p) => p.insert(v),
+                None => self.dx = Bst::new_leaf(v),
+            }
+        } else {
+            match self.sx {
+                Some(ref mut p) => p.insert(v),
+                None => self.sx = Bst::new_leaf(v),
+            }
+        }
+    }
 
-	fn print_it(&self, l: u64) {
-		for _i in 0..l {
-			print!("-");
-		}
+    fn print_it(&self, l: u64) {
+        for _i in 0..l {
+            print!("-");
+        }
 
-		println!("{}", self.k);
+        println!("{}", self.k);
 
-		match self.sx {
-			Some(ref p) => p.print_it(l + 1),
-			_ => (),
-		}
+        match self.sx {
+            Some(ref p) => p.print_it(l + 1),
+            _ => (),
+        }
 
-		match self.dx {
-			Some(ref p) => p.print_it(l + 1),
-			_ => (),
-		}
-	}
+        match self.dx {
+            Some(ref p) => p.print_it(l + 1),
+            _ => (),
+        }
+    }
 
-	pub fn print(&self) {
-		self.print_it(0);
-	}
+    pub fn print(&self) {
+        self.print_it(0);
+    }
 }
