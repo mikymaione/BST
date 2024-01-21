@@ -57,13 +57,19 @@ impl Bst {
     pub fn insert(&mut self, v: u64) {
         if self.k > v {
             match self.right {
-                Some(ref mut p) => p.insert(v),
-                None => self.right = Bst::new_leaf(v),
+                None =>
+                    self.right = Bst::new_leaf(v),
+
+                Some(ref mut p) =>
+                    p.insert(v),
             }
         } else {
             match self.left {
-                Some(ref mut p) => p.insert(v),
-                None => self.left = Bst::new_leaf(v),
+                None =>
+                    self.left = Bst::new_leaf(v),
+
+                Some(ref mut p) =>
+                    p.insert(v),
             }
         }
     }
