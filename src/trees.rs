@@ -10,10 +10,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 use std::fmt;
 
 pub struct Bst {
-    pub k: u64,
-
-    pub left: Option<Box<Bst>>,
-    pub right: Option<Box<Bst>>,
+    k: u64,
+    left: Option<Box<Bst>>,
+    right: Option<Box<Bst>>,
 }
 
 impl fmt::Display for Bst {
