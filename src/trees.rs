@@ -7,6 +7,8 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+use std::fmt;
+
 pub struct Bst {
     pub k: u64,
 
@@ -14,9 +16,35 @@ pub struct Bst {
     pub dx: Option<Box<Bst>>,
 }
 
+impl fmt::Display for Bst {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        self.print(fmt, 0)
+    }
+}
+
+impl Bst {
+    fn print(&self, fmt: &mut fmt::Formatter, l: u64) -> fmt::Result {
+        for _i in 0..l {
+            fmt.write_str("-")?;
+        }
+
+        fmt.write_fmt(format_args!("{}\n", self.k))?;
+
+        if let Some(ref p) = self.sx {
+            p.print(fmt, l + 1)?
+        };
+
+        if let Some(ref p) = self.dx {
+            p.print(fmt, l + 1)?
+        };
+
+        Ok(())
+    }
+}
+
 impl Bst {
     fn new_leaf(v: u64) -> Option<Box<Bst>> {
-        Option::Some(Box::new(Bst::new(v)))
+        Some(Box::new(Bst::new(v)))
     }
 
     pub fn new(v: u64) -> Self {
@@ -39,27 +67,5 @@ impl Bst {
                 None => self.sx = Bst::new_leaf(v),
             }
         }
-    }
-
-    fn print_it(&self, l: u64) {
-        for _i in 0..l {
-            print!("-");
-        }
-
-        println!("{}", self.k);
-
-        match self.sx {
-            Some(ref p) => p.print_it(l + 1),
-            _ => (),
-        }
-
-        match self.dx {
-            Some(ref p) => p.print_it(l + 1),
-            _ => (),
-        }
-    }
-
-    pub fn print(&self) {
-        self.print_it(0);
     }
 }

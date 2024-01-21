@@ -41,7 +41,7 @@ fn main2() {
     t.insert(9);
     t.insert(13);
 
-    t.print();
+    println!("{t}");
 }
 
 fn main3() {
@@ -59,5 +59,5 @@ fn main3() {
         t.insert(x);
     }
 
-    t.print();
+    println!("{t}");
 }
