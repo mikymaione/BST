@@ -12,8 +12,8 @@ use std::fmt;
 pub struct Bst {
     pub k: u64,
 
-    pub sx: Option<Box<Bst>>,
-    pub dx: Option<Box<Bst>>,
+    pub left: Option<Box<Bst>>,
+    pub right: Option<Box<Bst>>,
 }
 
 impl fmt::Display for Bst {
@@ -30,11 +30,11 @@ impl Bst {
 
         fmt.write_fmt(format_args!("{}\n", self.k))?;
 
-        if let Some(ref p) = self.sx {
+        if let Some(ref p) = self.left {
             p.print(fmt, l + 1)?
         };
 
-        if let Some(ref p) = self.dx {
+        if let Some(ref p) = self.right {
             p.print(fmt, l + 1)?
         };
 
@@ -50,21 +50,21 @@ impl Bst {
     pub fn new(v: u64) -> Self {
         Bst {
             k: v,
-            sx: None,
-            dx: None,
+            left: None,
+            right: None,
         }
     }
 
     pub fn insert(&mut self, v: u64) {
         if self.k > v {
-            match self.dx {
+            match self.right {
                 Some(ref mut p) => p.insert(v),
-                None => self.dx = Bst::new_leaf(v),
+                None => self.right = Bst::new_leaf(v),
             }
         } else {
-            match self.sx {
+            match self.left {
                 Some(ref mut p) => p.insert(v),
-                None => self.sx = Bst::new_leaf(v),
+                None => self.left = Bst::new_leaf(v),
             }
         }
     }
