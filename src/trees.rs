@@ -9,19 +9,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 use std::fmt;
 
-pub struct Bst {
-    k: u64,
-    left: Option<Box<Bst>>,
-    right: Option<Box<Bst>>,
+pub struct Bst<K: Ord + fmt::Display> {
+    k: K,
+    left: Option<Box<Bst<K>>>,
+    right: Option<Box<Bst<K>>>,
 }
 
-impl fmt::Display for Bst {
+impl<K: Ord + fmt::Display> fmt::Display for Bst<K> {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
         self.print(fmt, 0)
     }
 }
 
-impl Bst {
+impl<K: Ord + fmt::Display> Bst<K> {
     fn print(&self, fmt: &mut fmt::Formatter, l: u64) -> fmt::Result {
         for _i in 0..l {
             fmt.write_str("-")?;
@@ -41,8 +41,8 @@ impl Bst {
     }
 }
 
-impl Bst {
-    pub fn new(k: u64) -> Self {
+impl<K: Ord + fmt::Display> Bst<K> {
+    pub fn new(k: K) -> Self {
         Self {
             k,
             left: None,
@@ -50,11 +50,11 @@ impl Bst {
         }
     }
 
-    fn new_leaf(k: u64) -> Option<Box<Bst>> {
+    fn new_leaf(k: K) -> Option<Box<Bst<K>>> {
         Some(Box::new(Bst::new(k)))
     }
 
-    pub fn insert(&mut self, k: u64) {
+    pub fn insert(&mut self, k: K) {
         if self.k > k {
             match self.right {
                 None =>
