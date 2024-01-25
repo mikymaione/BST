@@ -9,10 +9,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 use std::fmt;
 
+type Node<K> = Option<Box<Bst<K>>>;
+
 pub struct Bst<K: Ord + fmt::Display> {
     k: K,
-    left: Option<Box<Bst<K>>>,
-    right: Option<Box<Bst<K>>>,
+    left: Node<K>,
+    right: Node<K>,
 }
 
 impl<K: Ord + fmt::Display> fmt::Display for Bst<K> {
@@ -50,15 +52,15 @@ impl<K: Ord + fmt::Display> Bst<K> {
         }
     }
 
-    fn new_leaf(k: K) -> Option<Box<Bst<K>>> {
-        Some(Box::new(Bst::new(k)))
+    fn new_leaf(k: K) -> Node<K> {
+        Some(Box::new(Self::new(k)))
     }
 
     pub fn insert(&mut self, k: K) {
         if self.k > k {
             match self.right {
                 None =>
-                    self.right = Bst::new_leaf(k),
+                    self.right = Self::new_leaf(k),
 
                 Some(ref mut p) =>
                     p.insert(k),
@@ -66,7 +68,7 @@ impl<K: Ord + fmt::Display> Bst<K> {
         } else {
             match self.left {
                 None =>
-                    self.left = Bst::new_leaf(k),
+                    self.left = Self::new_leaf(k),
 
                 Some(ref mut p) =>
                     p.insert(k),
