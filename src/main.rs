@@ -30,7 +30,8 @@ fn main1() {
 fn main2() {
     println!("Binary Search Tree:");
 
-    let mut t = trees::Bst::new(10);
+    let mut t = trees::Tree::new();
+    t.insert(10);
     t.insert(8);
     t.insert(1);
     t.insert(5);
@@ -40,7 +41,12 @@ fn main2() {
     t.insert(2);
     t.insert(9);
     t.insert(13);
+    println!("{t}");
 
+    t.delete(1);
+    println!("{t}");
+
+    t.delete(12);
     println!("{t}");
 }
 
