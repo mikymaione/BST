@@ -100,19 +100,9 @@ impl<K: Ord + Display> Bst<K> {
         }
     }
 
-    fn delete(mut root: MemoryContainer<K>, k: K) -> Node<K> {
-        if &k < &root.k {
-            if let Some(left) = root.left.take() {
-                root.left = Self::delete(left, k);
-            }
-            Some(root)
-        } else if &k > &root.k {
-            if let Some(right) = root.right.take() {
-                root.right = Self::delete(right, k);
-            }
-            Some(root)
-        } else {
-            match (root.left.take(), root.right.take()) {
+    fn delete(mut t: MemoryContainer<K>, k: K) -> Node<K> {
+        if k == t.k {
+            match (t.left.take(), t.right.take()) {
                 (None, None) =>
                     None,
 
@@ -136,6 +126,18 @@ impl<K: Ord + Display> Bst<K> {
                     }
                 }
             }
+        } else {
+            if k < t.k {
+                if let Some(left) = t.left.take() {
+                    t.left = Self::delete(left, k);
+                }
+            } else {
+                if let Some(right) = t.right.take() {
+                    t.right = Self::delete(right, k);
+                }
+            }
+
+            Some(t)
         }
     }
 
@@ -144,22 +146,23 @@ impl<K: Ord + Display> Bst<K> {
             None =>
                 None,
 
-            Some(ref mut right) => {
+            Some(ref mut right) =>
                 match right.rightmost_child() {
-                    Some(t) =>
-                        Some(t),
+                    Some(rightmost) =>
+                        Some(rightmost),
 
                     None => {
-                        let mut r = self.right.take();
+                        let mut right = self.right.take();
 
-                        if let Some(ref mut r) = r {
-                            self.right = std::mem::replace(&mut r.left, None);
+                        if let Some(ref mut right) = right {
+                            // right <- right.left
+                            // right.left <- None
+                            self.right = right.left.take();
                         }
 
-                        r
+                        right
                     }
                 }
-            }
         }
     }
 
